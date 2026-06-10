@@ -352,10 +352,11 @@
 
     .info-panel {
       border-radius: 12px;
-      padding: 0;
+      padding: 0 0 34px;
       display: flex;
       flex-direction: column;
       overflow: hidden;
+      position: relative;
     }
 
     .top-line {
@@ -375,19 +376,17 @@
       font-weight: 900;
     }
 
-    .top-line .access {
-      font-size: 13px;
-      color: #78c884;
-      letter-spacing: 1px;
-      font-weight: 950;
-      text-shadow: 0 0 8px rgba(120, 200, 132, 0.45);
-    }
-
+    .top-line .access,
     .top-line .access.minor {
-      color: #78c884;
+      display: none;
     }
 
-    .name-box {
+    .top-line .access-spacer {
+      width: 1px;
+      height: 1px;
+    }
+
+.name-box {
       padding: 22px 24px 10px;
       border-bottom: 1px solid rgba(126, 190, 130, 0.22);
     }
@@ -408,7 +407,7 @@
 
     .info-table {
       padding: 6px 24px 0;
-      flex: 1;
+      flex: 0 0 auto;
     }
 
     .row {
@@ -437,9 +436,9 @@
     }
 
     .quote {
-      margin: 16px 24px 20px;
+      margin: 18px 24px 0;
       min-height: 86px;
-      border: 1px solid rgba(126, 190, 130, 0.22);
+      border: 1px solid rgba(126, 170, 226, 0.22);
       background: rgba(0,0,0,0.22);
       padding: 18px 20px;
       display: flex;
@@ -475,6 +474,33 @@
       font-size: 10px;
       letter-spacing: 1px;
       z-index: 4;
+    }
+
+
+    .age-status {
+      position: absolute;
+      right: 24px;
+      bottom: 13px;
+      z-index: 8;
+      color: #78c884;
+      font-size: 10px;
+      font-weight: 950;
+      letter-spacing: 1.6px;
+      line-height: 1;
+      opacity: 0.82;
+      text-align: right;
+      text-shadow: 0 0 8px rgba(120, 200, 132, 0.42);
+      pointer-events: none;
+    }
+
+    .age-status.minor {
+      color: #78c884;
+    }
+
+    .owner-status-badge,
+    .owner-status-badge.minor,
+    .bottom-ui {
+      display: none !important;
     }
 
     .accent {
@@ -556,7 +582,7 @@
       <label>키워드</label>
       <input type="text" id="keywordInput" value="#정규군 #강경파 #항만통제" />
 
-      <label>봇주 성인 / 미성년자 여부 <span style="color:#7f8996;">(카드에는 20↑ / 20↓로 표시)</span></label>
+      <label>봇주 성인 / 미성년자 여부 <span style="color:#7f8996;">(카드에는 ADULT / MINOR로 표시)</span></label>
       <select id="ownerStatusInput">
         <option value="성인">성인</option>
         <option value="미성년자">미성년자</option>
@@ -579,24 +605,24 @@
               <div class="faction-sub">CENTRAL GOVERNMENT</div>
 
               <div class="big-badge-box">
-                <img src="badge_navarre.png" alt="Navarre Government Badge" />
+                <img src="badge_navarre.jpg" alt="Navarre Government Badge" />
               </div>
 
               <div class="mini-factions">
                 <div class="mini">
-                  <img src="badge_bluesand.png" alt="" />
+                  <img src="badge_bluesand.jpg" alt="" />
                   <span>BLUE SAND</span>
                 </div>
                 <div class="mini active">
-                  <img src="badge_navarre.png" alt="" />
+                  <img src="badge_navarre.jpg" alt="" />
                   <span>NAVARRE</span>
                 </div>
                 <div class="mini">
-                  <img src="badge_rebel.png" alt="" />
+                  <img src="badge_rebel.jpg" alt="" />
                   <span>REBEL</span>
                 </div>
                 <div class="mini">
-                  <img src="badge_mercenary.png" alt="" />
+                  <img src="badge_mercenary.jpg" alt="" />
                   <span>MERCENARY</span>
                 </div>
               </div>
@@ -628,7 +654,7 @@
           <div class="info-panel frame">
             <div class="top-line">
               <div class="title">NAVARRE · PERSONNEL FILE</div>
-              <div class="access" id="ownerStatusBadge">20↑</div>
+              <div class="access-spacer"></div>
             </div>
 
             <div class="name-box">
@@ -666,13 +692,11 @@
             <div class="quote" id="cardQuote">
               질서가 무너지면, 나라도 무너진다.
             </div>
+
+            <div class="age-status" id="ownerStatusBadge">ADULT</div>
           </div>
         </div>
-<div class="bottom-ui">
-          <span>REPUBLIC OF NAVARRE · CENTRAL GOVERNMENT FORCE</span>
-          <span>AUTHORIZED ACCESS ONLY · AZRA PORT COMMAND</span>
-        </div>
-      </div>
+</div>
     </div>
   </div>
 
@@ -702,7 +726,7 @@
 
     ownerStatusInput.addEventListener("change", () => {
       const isMinor = ownerStatusInput.value === "미성년자";
-      ownerStatusBadge.textContent = isMinor ? "20↓" : "20↑";
+      ownerStatusBadge.textContent = isMinor ? "MINOR" : "ADULT";
       ownerStatusBadge.classList.toggle("minor", isMinor);
     });
 
