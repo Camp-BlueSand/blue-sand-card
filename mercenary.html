@@ -565,7 +565,7 @@
       <label>한마디</label>
       <textarea id="quoteInput">돈이 되는 쪽이, 오늘의 아군이다.</textarea>
 
-      <button onclick="downloadCard()">PNG로 저장</button>
+      <button onclick="downloadCard()">JPG로 저장</button>
     </div>
 
     <div class="card-wrap">
@@ -728,13 +728,13 @@
       const card = document.getElementById("profileCard");
 
       if (typeof html2canvas === "undefined") {
-        alert("PNG 저장 모듈을 불러오지 못했습니다. 잠시 후 새로고침한 뒤 다시 시도해 주세요.");
+        alert("JPG 저장 모듈을 불러오지 못했습니다. 잠시 후 새로고침한 뒤 다시 시도해 주세요.");
         return;
       }
 
       try {
         const canvas = await html2canvas(card, {
-          backgroundColor: null,
+          backgroundColor: "#05080d",
           scale: 2,
           useCORS: true,
           allowTaint: true,
@@ -742,14 +742,14 @@
         });
 
         const link = document.createElement("a");
-        link.download = "mercenary-profile-card.png";
-        link.href = canvas.toDataURL("image/png");
+        link.download = "mercenary-profile-card.jpg";
+        link.href = canvas.toDataURL("image/jpeg", 0.95);
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
       } catch (error) {
         console.error(error);
-        alert("PNG 저장 중 오류가 났습니다. 이미지나 브라우저 보안 설정 문제일 수 있어요.");
+        alert("JPG 저장 중 오류가 났습니다. 이미지나 브라우저 보안 설정 문제일 수 있어요.");
       }
     }
   </script>
